@@ -1,0 +1,120 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 40% 98%;
+    --foreground: 216 19% 16%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 216 19% 16%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 216 19% 16%;
+
+    --primary: 216 88% 17%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 216 19% 16%;
+
+    --muted: 210 40% 96%;
+    --muted-foreground: 216 12% 45%;
+
+    --accent: 210 40% 96%;
+    --accent-foreground: 216 19% 16%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 216 88% 17%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 216 88% 17%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 13 93% 66%;
+    --sidebar-primary-foreground: 216 88% 17%;
+    --sidebar-accent: 216 85% 25%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 216 85% 25%;
+    --sidebar-ring: 13 93% 66%;
+  }
+
+  .dark {
+    --background: 216 88% 7%;
+    --foreground: 210 40% 98%;
+
+    --card: 216 85% 10%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 216 85% 10%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 13 93% 66%;
+    --primary-foreground: 216 88% 17%;
+
+    --secondary: 216 85% 15%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 216 85% 15%;
+    --muted-foreground: 217 10% 64%;
+
+    --accent: 216 85% 15%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 216 85% 15%;
+    --input: 216 85% 15%;
+    --ring: 13 93% 66%;
+
+    --sidebar-background: 216 88% 7%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 13 93% 66%;
+    --sidebar-primary-foreground: 216 88% 17%;
+    --sidebar-accent: 216 85% 15%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 216 85% 15%;
+    --sidebar-ring: 13 93% 66%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-inter;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-playfair;
+  }
+}
+
+@layer components {
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .glass-card {
+    @apply glass-effect rounded-xl p-6 shadow-lg;
+  }
+
+  .glow-coral {
+    box-shadow: 0 0 20px rgba(255, 107, 71, 0.3);
+  }
+
+  .glow-navy {
+    box-shadow: 0 0 20px rgba(26, 54, 93, 0.3);
+  }
+}
