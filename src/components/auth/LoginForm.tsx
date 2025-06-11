@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
@@ -54,7 +53,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-salon flex items-center justify-center p-4">
+    <div className="min-h-screen login-black-bg flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Logo/Brand Section */}
         <div className="text-center mb-8">
@@ -66,12 +65,12 @@ const LoginForm = () => {
         </div>
 
         {/* Login Card */}
-        <Card className="glass-effect border-white/20 backdrop-blur-xl">
+        <Card className="login-black-box">
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl font-playfair text-center text-white">
               Welcome Back
             </CardTitle>
-            <CardDescription className="text-center text-gray-300">
+            <CardDescription className="text-center text-white">
               Sign in to your salon dashboard
             </CardDescription>
           </CardHeader>
@@ -85,7 +84,7 @@ const LoginForm = () => {
                   placeholder="Enter your email"
                   value={formData.email}
                   onChange={(e) => handleChange('email', e.target.value)}
-                  className="bg-white/10 border-white/20 text-white placeholder:text-gray-400"
+                  className="bg-black border-gray-700 text-white placeholder:text-gray-400"
                   required
                 />
               </div>
@@ -98,7 +97,7 @@ const LoginForm = () => {
                     placeholder="Enter your password"
                     value={formData.password}
                     onChange={(e) => handleChange('password', e.target.value)}
-                    className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 pr-10"
+                    className="bg-black border-gray-700 text-white placeholder:text-gray-400 pr-10"
                     required
                   />
                   <button
@@ -115,9 +114,9 @@ const LoginForm = () => {
                   id="remember"
                   checked={formData.rememberMe}
                   onCheckedChange={(checked) => handleChange('rememberMe', !!checked)}
-                  className="border-white/20 data-[state=checked]:bg-coral-500"
+                  className="border-gray-700 data-[state=checked]:bg-coral-500"
                 />
-                <Label htmlFor="remember" className="text-sm text-gray-300">
+                <Label htmlFor="remember" className="text-sm text-white">
                   Remember me
                 </Label>
               </div>
@@ -133,7 +132,7 @@ const LoginForm = () => {
               <Button
                 type="button"
                 variant="link"
-                className="text-gray-300 hover:text-white"
+                className="text-white hover:text-coral-500"
               >
                 Forgot your password?
               </Button>
@@ -142,9 +141,9 @@ const LoginForm = () => {
         </Card>
 
         {/* Demo Credentials */}
-        <div className="mt-6 p-4 bg-white/5 rounded-lg border border-white/10">
-          <p className="text-sm text-gray-300 text-center mb-2">Demo Credentials:</p>
-          <p className="text-xs text-gray-400 text-center">
+        <div className="mt-6 p-4 bg-black rounded-lg border border-gray-700">
+          <p className="text-sm text-white text-center mb-2">Demo Credentials:</p>
+          <p className="text-xs text-gray-300 text-center">
             Email: salon@example.com | Password: password
           </p>
         </div>

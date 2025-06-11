@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -116,5 +115,44 @@
 
   .glow-navy {
     box-shadow: 0 0 20px rgba(26, 54, 93, 0.3);
+  }
+
+  .login-black-bg {
+    background: #111 !important;
+    color: #111 !important;
+  }
+
+  .login-black-box {
+    background: #000 !important;
+    color: #fff !important;
+    border: 1px solid #222 !important;
+  }
+
+  .login-black-box input,
+  .login-black-box label,
+  .login-black-box button,
+  .login-black-box p,
+  .login-black-box span {
+    color: #fff !important;
+  }
+
+  .login-black-box input {
+    background: #222 !important;
+    border: 1px solid #333 !important;
+  }
+
+  .login-black-box .bg-coral-500 {
+    background: #ff6b47 !important;
+    color: #fff !important;
+  }
+
+  .login-black-box .text-gray-300,
+  .login-black-box .text-gray-400 {
+    color: #fff !important;
+  }
+
+  .login-black-box .border-white\/20,
+  .login-black-box .border-white\/10 {
+    border-color: #222 !important;
   }
 }
