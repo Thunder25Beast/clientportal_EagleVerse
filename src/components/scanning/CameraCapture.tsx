@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useCamera } from '@/hooks/useCamera';
 import { Button } from '@/components/ui/button';
@@ -87,7 +86,7 @@ const CameraCapture: React.FC<CameraCaptureProps> = ({ onCapture, isAnalyzing })
 
       <CardContent className="space-y-6">
         {/* Camera Preview */}
-        <div className="relative aspect-video bg-black rounded-lg overflow-hidden">
+        <div className="relative aspect-square sm:aspect-video bg-black rounded-lg overflow-hidden">
           {error ? (
             <div className="absolute inset-0 flex items-center justify-center bg-gray-900 text-white p-4">
               <div className="text-center">
@@ -116,8 +115,8 @@ const CameraCapture: React.FC<CameraCaptureProps> = ({ onCapture, isAnalyzing })
             <div className="absolute inset-0 pointer-events-none">
               {/* Guide Overlay */}
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-64 h-64 border-2 border-coral-400 rounded-full opacity-50 flex items-center justify-center">
-                  <div className="text-coral-400 text-sm font-medium bg-black/50 px-3 py-1 rounded">
+                <div className="h-[70%] aspect-square border-2 border-coral-400 rounded-full opacity-50 flex items-center justify-center">
+                  <div className="text-coral-400 text-xs sm:text-sm font-medium bg-black/50 px-2 py-0.5 sm:px-3 sm:py-1 rounded">
                     Position face here
                   </div>
                 </div>
@@ -137,43 +136,43 @@ const CameraCapture: React.FC<CameraCaptureProps> = ({ onCapture, isAnalyzing })
         </div>
 
         {/* Camera Controls */}
-        <div className="flex justify-center space-x-4">
+        <div className="flex flex-wrap justify-center gap-2 sm:gap-3 md:gap-4">
           <Button
             onClick={switchCamera}
             variant="outline"
-            size="lg"
+            size="default" 
             disabled={!isActive || isAnalyzing}
-            className="flex items-center space-x-2"
+            className="flex items-center space-x-1.5 sm:space-x-2 text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2"
           >
-            <RotateCw size={20} />
+            <RotateCw size={18} />
             <span>Switch</span>
           </Button>
 
           <Button
             onClick={toggleFlash}
             variant="outline"
-            size="lg"
+            size="default"
             disabled={!isActive || isAnalyzing}
-            className="flex items-center space-x-2"
+            className="flex items-center space-x-1.5 sm:space-x-2 text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2"
           >
-            {flashEnabled ? <ZapOff size={20} /> : <Zap size={20} />}
+            {flashEnabled ? <ZapOff size={18} /> : <Zap size={18} />}
             <span>Flash</span>
           </Button>
 
           <Button
             onClick={handleCapture}
-            size="lg"
+            size="default"
             disabled={!isActive || isAnalyzing || isCapturing}
-            className="bg-coral-500 hover:bg-coral-600 text-white px-8 flex items-center space-x-2 font-medium"
+            className="bg-coral-500 hover:bg-coral-600 text-white px-4 sm:px-6 py-1.5 sm:py-2 flex items-center space-x-1.5 sm:space-x-2 font-medium text-xs sm:text-sm"
           >
             {isCapturing ? (
               <>
-                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                <div className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
                 <span>Capturing...</span>
               </>
             ) : (
               <>
-                <Camera size={20} />
+                <Camera size={18} />
                 <span>Capture</span>
               </>
             )}
@@ -183,10 +182,10 @@ const CameraCapture: React.FC<CameraCaptureProps> = ({ onCapture, isAnalyzing })
             <Button
               onClick={stopCamera}
               variant="destructive"
-              size="lg"
-              className="flex items-center space-x-2"
+              size="default"
+              className="flex items-center space-x-1.5 sm:space-x-2 text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2"
             >
-              <CircleStop size={20} />
+              <CircleStop size={18} />
               <span>Stop</span>
             </Button>
           )}

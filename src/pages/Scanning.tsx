@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import CameraCapture from '@/components/scanning/CameraCapture';
@@ -177,50 +176,52 @@ const Scanning = () => {
         onDecline={handlePrivacyDecline}
       />
       
-      <div className="max-w-4xl mx-auto space-y-6">
-        <div className="text-center">
-          <h1 className="text-3xl font-playfair font-bold text-navy-900 mb-2">
+      <div className="max-w-4xl mx-auto space-y-4 sm:space-y-6 px-2 sm:px-4 md:px-6 lg:px-8 w-full py-4 sm:py-6">
+        <div className="text-center px-2">
+          <h1 className="text-2xl sm:text-3xl font-playfair font-bold text-navy-900 mb-1 sm:mb-2">
             AI Skin Analysis
           </h1>
-          <p className="text-gray-600">
+          <p className="text-sm sm:text-base text-gray-600">
             Capture or upload a photo for comprehensive skin analysis
           </p>
         </div>
 
         <Tabs defaultValue="camera" className="w-full">
           <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="camera" className="flex items-center space-x-2">
+            <TabsTrigger value="camera" className="flex items-center space-x-1 sm:space-x-2 py-2.5 sm:py-3 text-xs sm:text-sm">
               <Camera size={18} />
               <span>Camera Capture</span>
             </TabsTrigger>
-            <TabsTrigger value="upload" className="flex items-center space-x-2">
+            <TabsTrigger value="upload" className="flex items-center space-x-1 sm:space-x-2 py-2.5 sm:py-3 text-xs sm:text-sm">
               <Upload size={18} />
               <span>Upload Photo</span>
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="camera" className="mt-6">
-            <CameraCapture onCapture={handleCapture} isAnalyzing={isAnalyzing} />
+          <TabsContent value="camera" className="mt-4 sm:mt-6">
+            <div className="w-full md:max-w-xl lg:max-w-2xl mx-auto">
+              <CameraCapture onCapture={handleCapture} isAnalyzing={isAnalyzing} />
+            </div>
           </TabsContent>
 
-          <TabsContent value="upload" className="mt-6">
-            <Card className="w-full max-w-2xl mx-auto bg-white/90 backdrop-blur-sm border-0">
-              <CardHeader className="text-center">
-                <CardTitle className="font-playfair text-2xl text-navy-900">
+          <TabsContent value="upload" className="mt-4 sm:mt-6">
+            <Card className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl mx-auto bg-white/90 backdrop-blur-sm border-0 shadow-lg">
+              <CardHeader className="text-center pb-2 sm:pb-4">
+                <CardTitle className="font-playfair text-xl sm:text-2xl text-navy-900">
                   Upload Photo
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="border-2 border-dashed border-gray-300 rounded-lg p-12 text-center hover:border-coral-400 transition-colors">
-                  <Upload size={48} className="mx-auto mb-4 text-gray-400" />
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">
+              <CardContent className="space-y-4 sm:space-y-6 px-4 sm:px-6 pb-4 sm:pb-6">
+                <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 sm:p-6 md:p-8 text-center hover:border-coral-400 transition-colors">
+                  <Upload size={48} className="mx-auto mb-3 sm:mb-4 text-gray-400" />
+                  <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-1 sm:mb-2">
                     Select a photo to analyze
                   </h3>
-                  <p className="text-gray-500 mb-6">
+                  <p className="text-xs sm:text-sm text-gray-500 mb-4 sm:mb-6">
                     Choose a clear, well-lit photo of the face
                   </p>
-                  <Label htmlFor="photo-upload">
-                    <Button className="bg-coral-500 hover:bg-coral-600 text-white">
+                  <Label htmlFor="photo-upload" className="w-full">
+                    <Button className="bg-coral-500 hover:bg-coral-600 text-white w-full sm:w-auto text-sm sm:text-base py-2 sm:py-2.5">
                       Choose File
                     </Button>
                   </Label>
@@ -233,7 +234,7 @@ const Scanning = () => {
                   />
                 </div>
 
-                <div className="text-center text-sm text-gray-600">
+                <div className="text-center text-xs sm:text-sm text-gray-600 space-y-1">
                   <p>📋 <strong>Supported formats:</strong> JPG, PNG, WEBP</p>
                   <p>📏 <strong>Recommended:</strong> High resolution, good lighting</p>
                 </div>

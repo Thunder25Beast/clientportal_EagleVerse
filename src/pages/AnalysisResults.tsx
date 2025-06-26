@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import DashboardLayout from '@/components/layout/DashboardLayout';
@@ -57,16 +56,16 @@ const AnalysisResults = () => {
 
   return (
     <DashboardLayout>
-      <div className="max-w-6xl mx-auto space-y-6">
+      <div className="max-w-6xl mx-auto space-y-6 p-4 md:p-6">
         {/* Header */}
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-4">
-            <Button variant="outline" size="sm">
-              <ArrowLeft size={16} className="mr-2" />
-              Back to Scanning
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-0">
+          <div className="flex items-center space-x-2 sm:space-x-4">
+            <Button variant="outline" size="sm" onClick={() => window.history.back()}>
+              <ArrowLeft size={16} className="mr-1 sm:mr-2" />
+              Back
             </Button>
             <div>
-              <h1 className="text-3xl font-playfair font-bold text-navy-900">
+              <h1 className="text-xl sm:text-2xl md:text-3xl font-playfair font-bold text-navy-900">
                 Skin Analysis Results
               </h1>
               <p className="text-gray-600">Analysis completed on {new Date(analysis.analysisDate).toLocaleDateString()}</p>
@@ -110,29 +109,29 @@ const AnalysisResults = () => {
             {/* Face Map */}
             <Card>
               <CardHeader>
-                <CardTitle>Facial Region Analysis</CardTitle>
+                <CardTitle className="text-lg sm:text-xl">Facial Region Analysis</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="flex flex-col lg:flex-row gap-6">
                   {/* Face Diagram */}
                   <div className="flex-1">
-                    <div className="relative w-80 h-96 mx-auto bg-gradient-to-b from-orange-100 to-orange-200 rounded-full border-4 border-orange-300">
+                    <div className="relative w-60 h-72 sm:w-64 sm:h-80 md:w-72 md:h-[336px] lg:w-80 lg:h-96 mx-auto bg-gradient-to-b from-orange-100 to-orange-200 rounded-full border-2 sm:border-4 border-orange-300">
                       {/* Face outline */}
-                      <div className="absolute inset-4 bg-gradient-to-b from-pink-100 to-pink-200 rounded-full">
+                      <div className="absolute inset-2 sm:inset-4 bg-gradient-to-b from-pink-100 to-pink-200 rounded-full">
                         {/* Eyes */}
-                        <div className="absolute top-8 left-16 w-8 h-4 bg-blue-300 rounded-full"></div>
-                        <div className="absolute top-8 right-16 w-8 h-4 bg-blue-300 rounded-full"></div>
+                        <div className="absolute top-1/5 left-1/4 w-1/6 h-1/12 bg-blue-300 rounded-full"></div>
+                        <div className="absolute top-1/5 right-1/4 w-1/6 h-1/12 bg-blue-300 rounded-full"></div>
                         {/* Nose */}
-                        <div className="absolute top-16 left-1/2 transform -translate-x-1/2 w-4 h-8 bg-pink-300 rounded"></div>
+                        <div className="absolute top-1/3 left-1/2 transform -translate-x-1/2 w-1/12 h-1/6 bg-pink-300 rounded"></div>
                         {/* Mouth */}
-                        <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 w-12 h-3 bg-red-300 rounded-full"></div>
+                        <div className="absolute bottom-1/4 left-1/2 transform -translate-x-1/2 w-1/4 h-1/12 bg-red-300 rounded-full"></div>
                       </div>
                       
                       {/* Region markers */}
                       {analysis.scores.map((region) => (
                         <button
                           key={region.name}
-                          className={`absolute w-6 h-6 rounded-full border-2 border-white shadow-lg hover:scale-125 transition-transform ${getScoreColor(Math.max(region.darkCircles, region.darkSpots, region.fineLines, region.oiliness, region.wrinkles))}`}
+                          className={`absolute w-5 h-5 sm:w-6 sm:h-6 rounded-full border-2 border-white shadow-lg hover:scale-125 transition-transform ${getScoreColor(Math.max(region.darkCircles, region.darkSpots, region.fineLines, region.oiliness, region.wrinkles))}`}
                           style={regionPositions[region.name as keyof typeof regionPositions]}
                           onClick={() => setSelectedRegion(region)}
                         >
@@ -150,11 +149,11 @@ const AnalysisResults = () => {
                     {selectedRegion ? (
                       <Card>
                         <CardHeader>
-                          <CardTitle className="capitalize">
+                          <CardTitle className="capitalize text-base sm:text-lg">
                             {selectedRegion.name.replace(/_/g, ' ')} Analysis
                           </CardTitle>
                         </CardHeader>
-                        <CardContent className="space-y-4">
+                        <CardContent className="space-y-3 sm:space-y-4">
                           {[
                             { label: 'Dark Circles', value: selectedRegion.darkCircles },
                             { label: 'Dark Spots', value: selectedRegion.darkSpots },
@@ -162,11 +161,11 @@ const AnalysisResults = () => {
                             { label: 'Oiliness', value: selectedRegion.oiliness },
                             { label: 'Wrinkles', value: selectedRegion.wrinkles }
                           ].map((param) => (
-                            <div key={param.label} className="flex items-center justify-between">
+                            <div key={param.label} className="flex items-center justify-between text-xs sm:text-sm">
                               <span className="font-medium">{param.label}</span>
-                              <div className="flex items-center space-x-2">
-                                <Progress value={param.value === -1 ? 0 : param.value * 10} className="w-20" />
-                                <Badge variant={param.value <= 3 ? 'default' : param.value <= 6 ? 'secondary' : 'destructive'}>
+                              <div className="flex items-center space-x-1 sm:space-x-2">
+                                <Progress value={param.value === -1 ? 0 : param.value * 10} className="w-16 sm:w-20" />
+                                <Badge className="text-xs px-1.5 py-0.5 sm:px-2 sm:py-1" variant={param.value <= 3 ? 'default' : param.value <= 6 ? 'secondary' : 'destructive'}>
                                   {getScoreLabel(param.value)}
                                 </Badge>
                               </div>
@@ -190,25 +189,19 @@ const AnalysisResults = () => {
             {/* Treatment Recommendations */}
             <Card>
               <CardHeader>
-                <CardTitle>Recommended Treatments</CardTitle>
+                <CardTitle className="text-lg sm:text-xl">Recommended Treatments</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="grid gap-4">
+                <div className="grid gap-3 sm:gap-4">
                   {analysis.treatments.map((treatment) => (
-                    <div key={treatment.id} className="flex items-center justify-between p-4 border rounded-lg">
+                    <div key={treatment.id} className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-3 sm:p-4 border rounded-lg gap-2 sm:gap-0">
                       <div className="flex-1">
-                        <h3 className="font-semibold text-navy-900">{treatment.title}</h3>
-                        <p className="text-gray-600 text-sm">{treatment.reason}</p>
+                        <h3 className="font-semibold text-navy-900 text-sm sm:text-base">{treatment.title}</h3>
+                        <p className="text-xs sm:text-sm text-gray-600">{treatment.description}</p>
                       </div>
-                      <div className="flex items-center space-x-4">
-                        <Badge variant={treatment.priority === 'high' ? 'destructive' : treatment.priority === 'medium' ? 'secondary' : 'default'}>
-                          {treatment.priority} priority
-                        </Badge>
-                        <span className="font-bold text-coral-500">{treatment.cost}</span>
-                        <Button size="sm" className="bg-coral-500 hover:bg-coral-600">
-                          Book Now
-                        </Button>
-                      </div>
+                      <Button size="sm" variant="outline" className="mt-2 sm:mt-0 ml-0 sm:ml-4 text-xs sm:text-sm">
+                        View Details
+                      </Button>
                     </div>
                   ))}
                 </div>
@@ -220,12 +213,12 @@ const AnalysisResults = () => {
             {/* Detailed Analysis Table */}
             <Card>
               <CardHeader>
-                <CardTitle>Complete Facial Analysis</CardTitle>
+                <CardTitle className="text-lg sm:text-xl">Detailed Scores</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="overflow-x-auto">
-                  <table className="w-full border-collapse">
-                    <thead>
+                  <table className="w-full text-sm text-left text-gray-500">
+                    <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                       <tr className="border-b">
                         <th className="text-left p-3 font-semibold">Region</th>
                         <th className="text-center p-3 font-semibold">Dark Circles</th>

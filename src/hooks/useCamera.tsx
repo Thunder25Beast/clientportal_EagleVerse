@@ -1,5 +1,4 @@
-
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 
 interface CameraState {
   isActive: boolean;
@@ -17,16 +16,19 @@ export const useCamera = () => {
     facingMode: 'user',
     flashEnabled: false
   });
+  const [wasActiveBeforeHidden, setWasActiveBeforeHidden] = useState(false);
 
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  const startCamera = useCallback(async () => {
+  const startCamera = useCallback(async (newFacingMode?: 'user' | 'environment') => {
     try {
       setCameraState(prev => ({ ...prev, error: null }));
       
+      const targetFacingMode = newFacingMode || cameraState.facingMode;
+      
       const constraints: MediaStreamConstraints = {
         video: {
-          facingMode: cameraState.facingMode,
+          facingMode: targetFacingMode,
           width: { ideal: 1280 },
           height: { ideal: 720 }
         }
@@ -42,7 +44,8 @@ export const useCamera = () => {
         ...prev,
         isActive: true,
         stream,
-        error: null
+        error: null,
+        facingMode: targetFacingMode
       }));
     } catch (error) {
       console.error('Camera access error:', error);
@@ -55,8 +58,16 @@ export const useCamera = () => {
 
   const stopCamera = useCallback(() => {
     if (cameraState.stream) {
-      cameraState.stream.getTracks().forEach(track => track.stop());
+      cameraState.stream.getTracks().forEach(track => {
+        track.stop();
+        track.enabled = false;
+      });
     }
+    
+    if (videoRef.current) {
+      videoRef.current.srcObject = null;
+    }
+    
     setCameraState(prev => ({
       ...prev,
       isActive: false,
@@ -64,13 +75,50 @@ export const useCamera = () => {
     }));
   }, [cameraState.stream]);
 
-  const switchCamera = useCallback(() => {
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        if (cameraState.isActive) {
+          setWasActiveBeforeHidden(true);
+          stopCamera();
+        }
+      } else {
+        if (wasActiveBeforeHidden) {
+          startCamera();
+          setWasActiveBeforeHidden(false);
+        }
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      // Ensure camera is stopped when component unmounts
+      if (cameraState.isActive && cameraState.stream) {
+        cameraState.stream.getTracks().forEach(track => {
+          track.stop();
+          track.enabled = false;
+        });
+      }
+    };
+  }, [cameraState.isActive, stopCamera, startCamera, wasActiveBeforeHidden, cameraState.stream]);
+
+  const switchCamera = useCallback(async () => {
     const newFacingMode = cameraState.facingMode === 'user' ? 'environment' : 'user';
-    setCameraState(prev => ({ ...prev, facingMode: newFacingMode }));
     
     if (cameraState.isActive) {
+      // Stop current camera first
       stopCamera();
-      setTimeout(startCamera, 100);
+      
+      // Wait a bit for the camera to be fully released
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      // Start camera with new facing mode
+      await startCamera(newFacingMode);
+    } else {
+      // Just update the facing mode if camera is not active
+      setCameraState(prev => ({ ...prev, facingMode: newFacingMode }));
     }
   }, [cameraState.facingMode, cameraState.isActive, startCamera, stopCamera]);
 
