@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://eagle-backend-v1-production.up.railway.app/api';
+const API_BASE_URL = 'https://eagle-backend-v1-production.up.railway.app/api';
 
 interface ApiOptions {
   method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
